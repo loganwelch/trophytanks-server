@@ -1,0 +1,26 @@
+[
+    {
+        "model": "tanksapi.profile",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "bio": "Cichlids are my favorite!"
+        }
+    },
+    {
+        "model": "tanksapi.profile",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "bio": "I only keep freshwater invertebrates, they're great."
+        }
+    },
+    {
+        "model": "tanksapi.profile",
+        "pk": 3,
+        "fields": {
+            "user": 3,
+            "bio": "I love creating planted scapes with community fish"
+        }
+    }
+]

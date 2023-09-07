@@ -1,0 +1,44 @@
+[
+    {
+        "model": "tanksapi.tank",
+        "pk": 1,
+        "fields": {
+            "profile": 1,
+            "name": "36 Gallon Planted Invert Tank",
+            "gallons": 36,
+            "flora": "Cryptocoryne balansae, C. wendtii green, C. costata, C. lucens, Madagascar Lace, Anubias nana",
+            "fauna": "Neocaridina davidi, Tylomelania Gemmifera",
+            "started_date": "2020-01-15",
+            "noteworthy_comments": "The tylos are growing and reproducing amazingly in this environment. So are the shrimp. The planted tank is the way to go. If anybody wants plants for their tank I'll be doing a trim soon and would hate to throw it all away",
+            "photo_url": "fakeurl.url"
+        }
+    },
+    {
+        "model": "tanksapi.tank",
+        "pk": 2,
+        "fields": {
+            "profile": 2,
+            "name": "15 Gallon Bowfront Scape",
+            "gallons": 15,
+            "flora": "Cryptocoryne wendtii brown, C. wendtii green, C. costata, Limnophila sessiliflora",
+            "fauna": "Tylomelania Gemmifera",
+            "started_date": "2021-03-04",
+            "noteworthy_comments": "Only thing in this tank now are a few tylo babies. Ive been thinking about turning this into a dwarf puffer tank though 🤔",
+            "photo_url": "fakeurl.url"
+        }
+    },
+    {
+        "model": "tanksapi.tank",
+        "pk": 3,
+        "fields": {
+            "profile": 3,
+            "name": "8 Gallon Natural Walstad",
+            "gallons": 8,
+            "flora": "Cryptocoryne lutea, C. lucens, Anubias nana, Ludwigia",
+            "fauna": "Tylomelania Gemmifera, Neocaridina davidi",
+            "started_date": "2022-04-20",
+            "noteworthy_comments": "This is a naturally planted spherical aquarium done in the Walstad Method. No Co2, no ferts, but a substrate of organic potting soil capped with sand. The plants have done great in this as have the shrimp and snails.",
+            "photo_url": "fakeurl.url"
+        }
+    }
+]

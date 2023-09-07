@@ -1,0 +1,72 @@
+[
+    {
+        "model": "tanksapi.tag",
+        "pk": 1,
+        "fields": {
+            "label": "Pressurized Co2"
+        }
+    },
+    {
+        "model": "tanksapi.tag",
+        "pk": 2,
+        "fields": {
+            "label": "DIY Co2"
+        }
+    },
+    {
+        "model": "tanksapi.tag",
+        "pk": 3,
+        "fields": {
+            "label": "No Co2"
+        }
+    },
+    {
+        "model": "tanksapi.tag",
+        "pk": 4,
+        "fields": {
+            "label": "Liquid Ferts"
+        }
+    },
+    {
+        "model": "tanksapi.tag",
+        "pk": 5,
+        "fields": {
+            "label": "Dry Ferts"
+        }
+    },
+    {
+        "model": "tanksapi.tag",
+        "pk": 6,
+        "fields": {
+            "label": "Root Tabs"
+        }
+    },
+    {
+        "model": "tanksapi.tag",
+        "pk": 7,
+        "fields": {
+            "label": "No Ferts"
+        }
+    },
+    {
+        "model": "tanksapi.tag",
+        "pk": 8,
+        "fields": {
+            "label": "High Light"
+        }
+    },
+    {
+        "model": "tanksapi.tag",
+        "pk": 9,
+        "fields": {
+            "label": "Mid Light"
+        }
+    },
+    {
+        "model": "tanksapi.tag",
+        "pk": 10,
+        "fields": {
+            "label": "Low Light"
+        }
+    }
+]
