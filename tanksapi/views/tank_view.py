@@ -24,9 +24,19 @@ class TankView(ViewSet):
         Returns:
             Response -- JSON serialized list of tanks
         """
+
+        user_id = request.query_params.get("user")
         tanks = Tank.objects.all()
+
+        if user_id == "current":
+            # Filter tanks for the current authenticated user
+            tanks = tanks.filter(profile__user=request.auth.user)
+        else:
+            # Filter tanks by the specified user ID
+            tanks = tanks.filter(profile__user__id=user_id)
         serializer = TankSerializer(tanks, many=True)
         return Response(serializer.data)
+    # test the above with http://localhost:8000/tanks?user=2 in postman
 
     def create(self, request):
         print(request.data)
@@ -62,7 +72,7 @@ class TankView(ViewSet):
         new_profile_id = request.data["profile"]["id"]
         new_profile = Profile.objects.get(pk=new_profile_id)
         tank.profile = new_profile
-        
+
         # Update tank tags using a list of tag objects
         tag_ids = request.data["tags"]
         tags = Tag.objects.filter(pk__in=tag_ids)
