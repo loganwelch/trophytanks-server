@@ -3,4 +3,9 @@
         "--load-plugins=pylint_django",
         "--django-settings-module=honeyrae.settings",
     ],
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#07e7ee",
+        "titleBar.activeBackground": "#07e7ee",
+        "titleBar.activeForeground": "#ed8207"
+    }
 }
