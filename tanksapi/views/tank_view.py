@@ -24,19 +24,14 @@ class TankView(ViewSet):
         Returns:
             Response -- JSON serialized list of tanks
         """
+        tanks = Tank.objects.order_by('-gallons')
+        if "user" in request.query_params:
+            profile = Profile.objects.get(user=request.auth.user)
+            tanks = tanks.filter(profile=profile)
 
-        user_id = request.query_params.get("user")
-        tanks = Tank.objects.all()
-
-        if user_id == "current":
-            # Filter tanks for the current authenticated user
-            tanks = tanks.filter(profile__user=request.auth.user)
-        else:
-            # Filter tanks by the specified user ID
-            tanks = tanks.filter(profile__user__id=user_id)
         serializer = TankSerializer(tanks, many=True)
         return Response(serializer.data)
-    # test the above with http://localhost:8000/tanks?user=2 in postman
+
 
     def create(self, request):
         print(request.data)
@@ -109,3 +104,19 @@ class TankSerializer(serializers.ModelSerializer):
         fields = ('id', 'profile', 'name', 'gallons',
                 'flora', 'fauna', 'started_date', 'noteworthy_comments',
                 'photo_url', 'tags')
+
+
+# user_id = request.query_params.get("user")
+#       tanks = Tank.objects.all()
+
+#        if user_id == "current":
+#             # Filter tanks for the current authenticated user
+#             tanks = tanks.filter(profile__user=request.auth.user)
+#         else:
+#             # Filter tanks by the specified user ID
+#             tanks = tanks.filter(profile__user__id=user_id)
+#         serializer = TankSerializer(tanks, many=True)
+#         return Response(serializer.data)
+
+
+
