@@ -27,11 +27,17 @@ def login_user(request):
     # If authentication was successful, respond with their token
     if authenticated_user is not None:
         token = Token.objects.get(user=authenticated_user)
+        try:
+            profile = Profile.objects.get(user=authenticated_user)
+            userProfileId = profile.id
+        except Profile.DoesNotExist:
+            userProfileId = None
 
         data = {
             'valid': True,
             'token': token.key,
-            'staff': authenticated_user.is_staff
+            'staff': authenticated_user.is_staff,
+            'userProfileId': userProfileId
         }
         return Response(data)
     else:

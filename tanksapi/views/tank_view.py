@@ -54,26 +54,58 @@ class TankView(ViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def update(self, request, pk):
-        tank = Tank.objects.get(pk=pk)
-        tank.name = request.data["name"]
-        tank.gallons = request.data["gallons"]
-        tank.flora = request.data["flora"]
-        tank.fauna = request.data["fauna"]
-        tank.started_date = request.data["started_date"]
-        tank.noteworthy_comments = request.data["noteworthy_comments"]
-        tank.photo_url = request.data["photo_url"]
+        try:
+            tank = Tank.objects.get(pk=pk)
+        except Tank.DoesNotExist:
+            return Response({"error": "Tank not found"}, status=status.HTTP_404_NOT_FOUND)
 
-        # Update the user (profile) associated with the tank
-        new_profile_id = request.data["profile"]["id"]
-        new_profile = Profile.objects.get(pk=new_profile_id)
-        tank.profile = new_profile
+        # Update basic fields
+        tank.name = request.data.get("name", tank.name)
+        tank.gallons = request.data.get("gallons", tank.gallons)
+        tank.flora = request.data.get("flora", tank.flora)
+        tank.fauna = request.data.get("fauna", tank.fauna)
+        tank.started_date = request.data.get("started_date", tank.started_date)
+        tank.noteworthy_comments = request.data.get(
+            "noteworthy_comments", tank.noteworthy_comments)
+        tank.photo_url = request.data.get("photo_url", tank.photo_url)
 
-        # Update tank tags using a list of tag objects
-        tag_ids = request.data["tags"]
-        tags = Tag.objects.filter(pk__in=tag_ids)
-        tank.tags.set(tags)
+        # Update the user (profile) associated with the tank if provided
+        if "profile" in request.data and "id" in request.data["profile"]:
+            new_profile_id = request.data["profile"]["id"]
+            try:
+                new_profile = Profile.objects.get(pk=new_profile_id)
+                tank.profile = new_profile
+            except Profile.DoesNotExist:
+                return Response({"error": "Profile not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        # Update tank tags if provided
+        if "tags" in request.data:
+            tags = Tag.objects.filter(pk__in=request.data["tags"])
+            tank.tags.set(tags)
 
         tank.save()
+
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+        # tank = Tank.objects.get(pk=pk)
+        # tank.name = request.data["name"]
+        # tank.gallons = request.data["gallons"]
+        # tank.flora = request.data["flora"]
+        # tank.fauna = request.data["fauna"]
+        # tank.started_date = request.data["started_date"]
+        # tank.noteworthy_comments = request.data["noteworthy_comments"]
+        # tank.photo_url = request.data["photo_url"]
+
+        # # Update the user (profile) associated with the tank
+        # new_profile_id = request.data["id"]
+        # new_profile = Profile.objects.get(pk=new_profile_id)
+        # tank.profile = new_profile
+
+        # # Update tank tags using a list of tag objects
+        # tag_ids = request.data["tags"]
+        # tags = Tag.objects.filter(pk__in=tag_ids)
+        # tank.tags.set(tags)
+
+        # tank.save()
 
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
@@ -92,7 +124,7 @@ class TankTagSerializer(serializers.ModelSerializer):
 class ProfileTankSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ('full_name',)
+        fields = ('id', 'full_name')
 
 
 class TankSerializer(serializers.ModelSerializer):
@@ -104,19 +136,4 @@ class TankSerializer(serializers.ModelSerializer):
         fields = ('id', 'profile', 'name', 'gallons',
                 'flora', 'fauna', 'started_date', 'noteworthy_comments',
                 'photo_url', 'tags')
-
-
-# user_id = request.query_params.get("user")
-#       tanks = Tank.objects.all()
-
-#        if user_id == "current":
-#             # Filter tanks for the current authenticated user
-#             tanks = tanks.filter(profile__user=request.auth.user)
-#         else:
-#             # Filter tanks by the specified user ID
-#             tanks = tanks.filter(profile__user__id=user_id)
-#         serializer = TankSerializer(tanks, many=True)
-#         return Response(serializer.data)
-
-
 
