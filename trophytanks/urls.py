@@ -19,13 +19,14 @@ from django.conf.urls import include
 from rest_framework import routers
 from django.urls import path
 from tanksapi.views import register_user, login_user
-from tanksapi.views import ProfileView, TankView, TagView
+from tanksapi.views import ProfileView, TankView, TagView, UserView
 
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'profiles', ProfileView, 'profile')
 router.register(r'tanks', TankView, 'tank')
 router.register(r'tags', TagView, 'tag')
+router.register(r'users', UserView, 'user')
 
 urlpatterns = [
     path('register', register_user),

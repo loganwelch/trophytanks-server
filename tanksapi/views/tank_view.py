@@ -70,8 +70,8 @@ class TankView(ViewSet):
         tank.photo_url = request.data.get("photo_url", tank.photo_url)
 
         # Update the user (profile) associated with the tank if provided
-        if "profile" in request.data and "id" in request.data["profile"]:
-            new_profile_id = request.data["profile"]["id"]
+        if "profile" in request.data:
+            new_profile_id = request.data["profile"]
             try:
                 new_profile = Profile.objects.get(pk=new_profile_id)
                 tank.profile = new_profile
@@ -107,7 +107,7 @@ class TankView(ViewSet):
 
         # tank.save()
 
-        return Response(None, status=status.HTTP_204_NO_CONTENT)
+        # return Response(None, status=status.HTTP_204_NO_CONTENT)
 
     def destroy(self, request, pk):
         tank = Tank.objects.get(pk=pk)

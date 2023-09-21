@@ -30,6 +30,11 @@ class UserView(ViewSet):
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
+    
+    def destroy(self, request, pk):
+        user = User.objects.get(pk=pk)
+        user.delete()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -37,8 +42,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ('id', 'user', 'bio', 'full_name', 'email',
-                'username', 'date_joined', 'is_staff')
+        fields = ('id', 'user', 'bio', 'full_name')
 
 
 class UserSerializer(serializers.ModelSerializer):
